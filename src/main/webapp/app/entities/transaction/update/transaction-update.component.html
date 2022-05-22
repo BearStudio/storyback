@@ -1,0 +1,91 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-transaction-heading" data-cy="TransactionCreateUpdateHeading">Create or edit a Transaction</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_paymentId">Payment Id</label>
+          <input type="text" class="form-control" name="paymentId" id="field_paymentId" data-cy="paymentId" formControlName="paymentId" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_reservationReference">Reservation Reference</label>
+          <input
+            type="text"
+            class="form-control"
+            name="reservationReference"
+            id="field_reservationReference"
+            data-cy="reservationReference"
+            formControlName="reservationReference"
+          />
+          <div
+            *ngIf="
+              editForm.get('reservationReference')!.invalid &&
+              (editForm.get('reservationReference')!.dirty || editForm.get('reservationReference')!.touched)
+            "
+          >
+            <small class="form-text text-danger" *ngIf="editForm.get('reservationReference')?.errors?.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_paymentStatus">Payment Status</label>
+          <select
+            class="form-control"
+            name="paymentStatus"
+            formControlName="paymentStatus"
+            id="field_paymentStatus"
+            data-cy="paymentStatus"
+          >
+            <option [ngValue]="null"></option>
+            <option *ngFor="let paymentStatus of paymentStatusValues" [value]="paymentStatus">paymentStatus</option>
+          </select>
+          <div
+            *ngIf="
+              editForm.get('paymentStatus')!.invalid && (editForm.get('paymentStatus')!.dirty || editForm.get('paymentStatus')!.touched)
+            "
+          >
+            <small class="form-text text-danger" *ngIf="editForm.get('paymentStatus')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_paymentType">Payment Type</label>
+          <select class="form-control" name="paymentType" formControlName="paymentType" id="field_paymentType" data-cy="paymentType">
+            <option [ngValue]="null"></option>
+            <option *ngFor="let paymentType of paymentTypeValues" [value]="paymentType">paymentType</option>
+          </select>
+          <div *ngIf="editForm.get('paymentType')!.invalid && (editForm.get('paymentType')!.dirty || editForm.get('paymentType')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('paymentType')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

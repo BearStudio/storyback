@@ -48,6 +48,7 @@ public class CacheConfiguration {
             createCache(cm, com.bearstudio.storyback.domain.User.class.getName());
             createCache(cm, com.bearstudio.storyback.domain.Authority.class.getName());
             createCache(cm, com.bearstudio.storyback.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.bearstudio.storyback.domain.Transaction.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

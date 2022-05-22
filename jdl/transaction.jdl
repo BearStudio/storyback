@@ -1,0 +1,18 @@
+entity Transaction {
+  paymentId String
+  reservationReference String required
+  paymentStatus PaymentStatus required
+  paymentType PaymentType required
+}
+enum PaymentStatus {
+  PENDING,
+  CANCELED,
+  REFUSED,
+  DONE
+}
+enum PaymentType {
+  STRIPE
+}
+service  Transaction with serviceClass
+paginate Transaction with pagination
+filter Transaction
